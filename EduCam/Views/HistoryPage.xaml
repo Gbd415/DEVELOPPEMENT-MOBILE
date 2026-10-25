@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EduCam.Views.HistoryPage"
+             Title="Historique"
+             BackgroundColor="#F7FAFC">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Effacer" Command="{Binding ClearCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <CollectionView ItemsSource="{Binding Results}" EmptyView="Aucun résultat pour le moment.">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Margin="16,8" Padding="16" CornerRadius="12" BackgroundColor="White" 
+                       HasShadow="True" BorderColor="#E2E8F0">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding QuizTitle}" 
+                               FontSize="16" FontAttributes="Bold" TextColor="#2D3748" />
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="{Binding Percentage, StringFormat='{0:0}%'}" 
+                               FontSize="18" FontAttributes="Bold" TextColor="#2B6CB0" 
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Subject}" 
+                               FontSize="13" TextColor="#718096" />
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" 
+                               Text="{Binding CompletedAt, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                               FontSize="12" TextColor="#A0AEC0" Margin="0,4,0,0" />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

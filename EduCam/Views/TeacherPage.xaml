@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EduCam.Views.TeacherPage"
+             Title="Espace Enseignant"
+             BackgroundColor="#F7FAFC">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- Formulaire de création -->
+            <Frame BackgroundColor="White" CornerRadius="14" Padding="16" HasShadow="True" BorderColor="#E2E8F0">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Créer un nouveau questionnaire" FontSize="17" FontAttributes="Bold" TextColor="#2D3748" />
+
+                    <Entry Placeholder="Titre du quiz" Text="{Binding NewTitle}" />
+                    <Picker Title="Matière" SelectedItem="{Binding NewSubject}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Maths</x:String>
+                                <x:String>Français</x:String>
+                                <x:String>Histoire</x:String>
+                                <x:String>Sciences</x:String>
+                                <x:String>Autre</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <Entry Placeholder="Description (optionnel)" Text="{Binding NewDescription}" />
+
+                    <BoxView HeightRequest="1" Color="#E2E8F0" Margin="0,8" />
+
+                    <Label Text="Ajouter une question" FontSize="15" FontAttributes="Bold" TextColor="#4A5568" />
+                    <Editor Placeholder="Texte de la question" Text="{Binding QText}" HeightRequest="70" AutoSize="TextChanges" />
+                    <Entry Placeholder="Option 1 (obligatoire)" Text="{Binding Opt1}" />
+                    <Entry Placeholder="Option 2 (obligatoire)" Text="{Binding Opt2}" />
+                    <Entry Placeholder="Option 3 (optionnel)" Text="{Binding Opt3}" />
+                    <Entry Placeholder="Option 4 (optionnel)" Text="{Binding Opt4}" />
+
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="Bonne réponse :" VerticalOptions="Center" TextColor="#4A5568" />
+                        <Picker SelectedIndex="{Binding CorrectIndex}" WidthRequest="120">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Option 1</x:String>
+                                    <x:String>Option 2</x:String>
+                                    <x:String>Option 3</x:String>
+                                    <x:String>Option 4</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </HorizontalStackLayout>
+
+                    <Button Text="+ Ajouter la question" Command="{Binding AddQuestionCommand}"
+                            BackgroundColor="#4299E1" TextColor="White" CornerRadius="10" />
+
+                    <!-- Liste temporaire des questions ajoutées -->
+                    <CollectionView ItemsSource="{Binding NewQuestions}" HeightRequest="120">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Text}" FontSize="13" TextColor="#4A5568" Margin="0,2" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Enregistrer le questionnaire" Command="{Binding SaveQuizCommand}"
+                            BackgroundColor="#2B6CB0" TextColor="White" FontAttributes="Bold" CornerRadius="12" HeightRequest="48" />
+                    <Button Text="Effacer le formulaire" Command="{Binding ClearFormCommand}"
+                            BackgroundColor="#EDF2F7" TextColor="#4A5568" CornerRadius="10" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Liste des quiz existants -->
+            <Label Text="Questionnaires existants" FontSize="17" FontAttributes="Bold" TextColor="#2D3748" Margin="0,8,0,0" />
+
+            <CollectionView ItemsSource="{Binding Quizzes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,0,0,10" Padding="14" CornerRadius="12" BackgroundColor="White" 
+                               HasShadow="True" BorderColor="#E2E8F0">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold" TextColor="#2D3748" />
+                                    <Label Text="{Binding Subject}" FontSize="12" TextColor="#718096" />
+                                    <Label Text="{Binding Questions.Count, StringFormat='{0} questions'}" FontSize="12" TextColor="#A0AEC0" />
+                                </VerticalStackLayout>
+                                <Button Grid.Column="1" Text="Suppr." 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteQuizCommand}"
+                                        CommandParameter="{Binding .}"
+                                        BackgroundColor="#FC8181" TextColor="White" 
+                                        FontSize="12" Padding="10,6" VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
