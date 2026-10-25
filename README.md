@@ -54,4 +54,4 @@ EduCam/
 - SQLite (sqlite-net-pcl)
 - MVVM simple (sans CommunityToolkit pour rester léger)
 
-Bon développement !
+
