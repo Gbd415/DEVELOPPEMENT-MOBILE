@@ -1,3 +1,4 @@
+MONGO BIDJOKA GABRIEL FRANKLIN-24G01114
 # EduCam — Quiz scolaire hors ligne
 
 Application mobile .NET MAUI permettant aux élèves de s’auto-évaluer **sans connexion Internet** et aux enseignants de créer leurs propres questionnaires.
